@@ -1,0 +1,6 @@
+services:
+  zqq-015:
+    build: .
+    ports:
+      - "8015:80"
+    restart: unless-stopped
