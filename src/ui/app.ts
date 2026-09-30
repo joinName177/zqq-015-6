@@ -1,9 +1,17 @@
 import { IdiomProfile, KinshipResult } from '../core/models';
+import { ConflictStrategy } from '../core/package-types';
+import { renderOfflinePanel, bindOfflinePanel, OfflinePanelData } from './offline-panel';
 
 export interface IdiomUIHandlers {
   onSearch: (idiomText: string) => void;
   onCompare: (idiomA: string, idiomB: string) => void;
   onSwitchMode: (mode: 'single' | 'compare') => void;
+}
+
+export interface OfflineUIHandlers {
+  onExport: (idioms: string[]) => void;
+  onImportFile: (file: File, strategy: ConflictStrategy) => void;
+  onClearOffline: () => void;
 }
 
 export function renderIdiomApp(
@@ -14,7 +22,9 @@ export function renderIdiomApp(
   kinshipResult: KinshipResult | null,
   compareA: string,
   compareB: string,
-  handlers: IdiomUIHandlers
+  handlers: IdiomUIHandlers,
+  offlineData: OfflinePanelData,
+  offlineHandlers: OfflineUIHandlers
 ) {
   const esc = (s: string) =>
     s.replace(/[&<>'"]/g, t => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[t] || t));
@@ -67,6 +77,8 @@ export function renderIdiomApp(
           <button class="mode-btn ${mode === 'compare' ? 'active' : ''}" id="btnModeCompare">双词亲缘对比</button>
         </div>
       </header>
+
+      ${renderOfflinePanel(offlineData)}
 
       ${
         mode === 'single'
@@ -270,6 +282,8 @@ export function renderIdiomApp(
   // Attach event listeners
   container.querySelector('#btnModeSingle')?.addEventListener('click', () => handlers.onSwitchMode('single'));
   container.querySelector('#btnModeCompare')?.addEventListener('click', () => handlers.onSwitchMode('compare'));
+
+  bindOfflinePanel(container, offlineData, offlineHandlers);
 
   if (mode === 'single') {
     const singleInput = container.querySelector('#singleInput') as HTMLInputElement;
