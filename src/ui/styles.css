@@ -1,0 +1,467 @@
+:root {
+  --ink-bg: #141210;
+  --ink-panel: #1e1b17;
+  --ink-card: #28241f;
+  --vermilion: #c93b2b;
+  --bronze: #d4af37;
+  --jade: #40916c;
+  --silk: #f4ede1;
+  --ash: #9c9285;
+  --ink-border: #3b352d;
+  --font-serif: 'Noto Serif SC', 'Songti SC', serif;
+  --font-calligraphy: 'Ma Shan Zheng', cursive, serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--ink-bg);
+  color: var(--silk);
+  font-family: var(--font-serif);
+  min-height: 100vh;
+  line-height: 1.6;
+  background-image: 
+    radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
+    linear-gradient(180deg, #141210 0%, #1a1714 100%);
+  background-size: 24px 24px, 100% 100%;
+}
+
+.idiom-app {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 24px 20px 80px;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--ink-border);
+  margin-bottom: 24px;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.seal-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--vermilion);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-calligraphy);
+  font-size: 26px;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(201, 59, 43, 0.4);
+}
+
+.brand-section h1 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.brand-section p {
+  font-size: 12px;
+  color: var(--ash);
+  letter-spacing: 0.5px;
+}
+
+.mode-toggle {
+  display: flex;
+  background: var(--ink-card);
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid var(--ink-border);
+}
+
+.mode-btn {
+  background: none;
+  border: none;
+  color: var(--ash);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-family: var(--font-serif);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mode-btn.active {
+  background: var(--vermilion);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Search Bar */
+.search-container {
+  background: var(--ink-panel);
+  border: 1px solid var(--ink-border);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 28px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.search-input-wrap {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.idiom-input {
+  flex: 1;
+  background: var(--ink-card);
+  border: 1px solid var(--ink-border);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: var(--font-serif);
+  letter-spacing: 2px;
+}
+
+.idiom-input:focus {
+  outline: none;
+  border-color: var(--bronze);
+}
+
+.btn-search {
+  background: linear-gradient(135deg, var(--bronze), #b38b4d);
+  color: #141210;
+  font-weight: 700;
+  border: none;
+  padding: 0 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.preset-chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.chip {
+  background: var(--ink-card);
+  border: 1px solid var(--ink-border);
+  color: var(--silk);
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.chip:hover {
+  border-color: var(--bronze);
+  color: var(--bronze);
+}
+
+/* Idiom Hero Banner */
+.idiom-hero {
+  background: var(--ink-panel);
+  border: 1px solid var(--ink-border);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hero-main h2 {
+  font-size: 38px;
+  font-family: var(--font-serif);
+  letter-spacing: 8px;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.hero-pinyin {
+  font-size: 14px;
+  color: var(--bronze);
+  margin-bottom: 8px;
+  font-family: monospace;
+}
+
+.hero-desc {
+  font-size: 14px;
+  color: var(--ash);
+  max-width: 680px;
+}
+
+.polarity-badge {
+  background: rgba(201, 59, 43, 0.2);
+  border: 1px solid var(--vermilion);
+  color: var(--vermilion);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.polarity-badge.褒义 {
+  background: rgba(64, 145, 108, 0.2);
+  border-color: var(--jade);
+  color: var(--jade);
+}
+
+.polarity-badge.中性 {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: var(--bronze);
+  color: var(--bronze);
+}
+
+/* Grid Layout */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 24px;
+}
+
+@media (max-width: 960px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Oracle Breakdown Row */
+.section-title {
+  font-size: 16px;
+  color: var(--bronze);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--ink-border);
+  padding-bottom: 8px;
+}
+
+.oracle-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+@media (max-width: 768px) {
+  .oracle-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.oracle-card {
+  background: var(--ink-panel);
+  border: 1px solid var(--ink-border);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.oracle-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--bronze);
+}
+
+.glyph-svg-wrap {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 10px;
+  background: #171512;
+  border: 1px dashed var(--bronze);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glyph-svg-wrap svg {
+  width: 50px;
+  height: 50px;
+}
+
+.char-kanji {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.char-script-tag {
+  font-size: 10px;
+  color: var(--bronze);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  padding: 2px 6px;
+  border-radius: 3px;
+  display: inline-block;
+  margin: 4px 0;
+}
+
+.char-origin-text {
+  font-size: 11px;
+  color: var(--ash);
+  line-height: 1.4;
+  margin-top: 6px;
+}
+
+/* Timeline & Evolution */
+.history-panel {
+  background: var(--ink-panel);
+  border: 1px solid var(--ink-border);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.allusion-quote {
+  background: rgba(0, 0, 0, 0.25);
+  border-left: 3px solid var(--vermilion);
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 12px 0;
+  color: #fff;
+  font-style: italic;
+}
+
+.evolution-path {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.evolution-node {
+  background: var(--ink-card);
+  border-radius: 6px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--bronze);
+}
+
+.evolution-era {
+  font-size: 12px;
+  color: var(--bronze);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.evolution-meaning {
+  font-size: 13px;
+  color: var(--silk);
+}
+
+/* Right Sidebar: Semantic DNA */
+.dna-panel {
+  background: var(--ink-panel);
+  border: 1px solid var(--ink-border);
+  border-radius: 10px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dna-chart-wrap {
+  width: 180px;
+  height: 180px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.dna-legend {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.legend-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+
+.sememes-box {
+  width: 100%;
+  border-top: 1px solid var(--ink-border);
+  padding-top: 16px;
+}
+
+.sememe-tag {
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: var(--bronze);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  display: inline-block;
+  margin: 3px;
+}
+
+/* Kinship Compare Arena */
+.kinship-arena {
+  background: var(--ink-panel);
+  border: 1px solid var(--ink-border);
+  border-radius: 12px;
+  padding: 28px;
+}
+
+.compare-inputs {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.vs-badge {
+  width: 40px;
+  height: 40px;
+  background: var(--vermilion);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.kinship-result-card {
+  background: var(--ink-card);
+  border: 1px solid var(--bronze);
+  border-radius: 10px;
+  padding: 24px;
+  margin-top: 20px;
+}
+
+.score-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--ink-border);
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+}
+
+.score-val {
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--bronze);
+}
