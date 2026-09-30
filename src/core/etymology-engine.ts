@@ -108,7 +108,7 @@ export function generateGenericIdiom(text: string): IdiomProfile {
   };
 
   return {
-    id: `custom-${Date.now()}`,
+    id: `custom-${seed.toString(16)}-${text.length}`,
     idiom: text,
     pinyin: 'chéng yǔ zhòng shēng',
     characters: oracleChars,

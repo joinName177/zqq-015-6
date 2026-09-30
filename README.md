@@ -4,10 +4,20 @@
 
 ## 架构说明（分层架构：核心层 / 端口层 / 适配器层）
 
-- `src/core`：领域模型（`OracleChar`、`AllusionSource`、`SemanticEvolutionStep`、`SemanticDNA`、`IdiomProfile`、`KinshipResult`）与欧氏DNA几何距离、义原Jaccard相似度算法。
-- `src/ports`：端口层契约（`IdiomRepositoryPort` 典籍成语检索端口、`KinshipPort` 亲缘度比对端口）。
-- `src/adapters`：适配器层（内置甲骨文字典与通用汉字语义生成适配器、亲缘比对分析适配器）。
-- `src/ui`：原生 CSS 宣纸墨韵古典视觉呈现层，包含金石甲骨卡片、历史时间轴、语义DNA甜甜圈图表与双词亲缘竞技场。
+- `src/core`：领域模型（`OracleChar`、`AllusionSource`、`SemanticEvolutionStep`、`SemanticDNA`、`IdiomProfile`、`KinshipResult`）、欧氏DNA几何距离与义原Jaccard相似度算法，以及**离线资料包纯函数核心**（`offline-pack.ts`：打包、FNV-1a 校验和、版本校验、冲突判定/合并、v1→v2 迁移、损坏抢救恢复）。
+- `src/ports`：端口层契约（`IdiomRepositoryPort` 典籍成语检索端口、`KinshipPort` 亲缘度比对端口、`OfflineStorePort` 离线资料库端口）。
+- `src/adapters`：适配器层（内置甲骨文字典与通用汉字语义生成适配器、亲缘比对分析适配器、**IndexedDB 离线库适配器**、**在线/离线统一资料库**、**离线包导入导出服务**）。
+- `src/ui`：原生 CSS 宣纸墨韵古典视觉呈现层，包含金石甲骨卡片、历史时间轴、语义DNA甜甜圈图表、双词亲缘竞技场，以及**离线资料库状态栏与导入向导模态框**。
+
+## 离线资料包（Offline Pack）
+
+允许将选定词条及其亲缘关系数据下载为可移植离线包（`.zqpack.json`），在另一设备/浏览器中重新导入。
+
+- **同一模型**：在线查询结果以 `IdiomProfile` / `KinshipResult` 同一模型回写 IndexedDB；离线查询走同一读取路径（`UnifiedIdiomRepository`），在线与离线结果完全一致。顶部「仅离线模式」开关可强制只读本地库。
+- **下载打包**：勾选已缓存词条（在线查询过的成语自动缓存，区分"在线典籍/本地推演"来源），连同词条间的亲缘关系一并导出；包含魔数、格式版本（当前 v2）、清单与 FNV-1a 校验和。
+- **版本校验**：导入时检查格式版本——兼容直接导入、旧版本（v1）自动迁移、未来/无效版本拒绝导入。
+- **冲突合并**：以修订号（revision）+ 时间戳 + 内容指纹判定 `新增 / 相同 / 冲突`，支持三种策略——智能合并（时间新者胜）、包内覆盖、保留本地跳过；可对单个冲突词条单独指定策略，导入前先预检再事务性落库。
+- **损坏恢复**：文件截断或部分损坏时，按字符串/括号状态机逐对象抢救解析，剔除损坏片段、恢复其余词条与关系，并对校验和不一致、清单数量不符等情况给出明确警告。
 
 ## 本地运行
 
@@ -20,6 +30,12 @@ npm run dev
 
 ```bash
 npm run build
+```
+
+## 核心逻辑测试（版本校验 / 冲突合并 / 损坏恢复 / IndexedDB 全链路）
+
+```bash
+npm test
 ```
 
 ## Docker 容器化部署

@@ -1,15 +1,20 @@
 {
   "name": "zqq-015",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:pack": "esbuild scripts/test-offline-pack.ts --bundle --platform=node --format=esm --outfile=node_modules/.tmp/test-pack.mjs && node node_modules/.tmp/test-pack.mjs",
+    "test:integration": "esbuild scripts/test-integration.ts --bundle --platform=node --format=esm --outfile=node_modules/.tmp/test-integration.mjs && node node_modules/.tmp/test-integration.mjs",
+    "test": "npm run test:pack && npm run test:integration"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
+    "esbuild": "^0.24.0",
+    "fake-indexeddb": "^6.2.5",
     "typescript": "^5.6.0",
     "vite": "^6.0.0"
   }
